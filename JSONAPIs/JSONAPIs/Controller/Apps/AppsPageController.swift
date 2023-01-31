@@ -23,6 +23,8 @@ class AppsPageController: BaseListController, UICollectionViewDelegateFlowLayout
         fetchData()
     }
     
+    var topFreeApps: AppGroup?
+    
     fileprivate func fetchData() {
         print("Fetching JSON Data...")
         Service.shared.fetchGames { (appGroup, err) in
@@ -31,9 +33,12 @@ class AppsPageController: BaseListController, UICollectionViewDelegateFlowLayout
                 return
             }
             
-            print(appGroup?.feed.results ?? "")
+            print(appGroup?.feed.title ?? "")
+            self.topFreeApps = appGroup
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
         }
-        
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -47,11 +52,15 @@ class AppsPageController: BaseListController, UICollectionViewDelegateFlowLayout
     
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return 1
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! AppsGroupCell
+        cell.titleLabel.text = topFreeApps?.feed.title
+        cell.horizontalController.appGroup = topFreeApps
+        cell.horizontalController.collectionView.reloadData()
+        
         return cell
     }
     

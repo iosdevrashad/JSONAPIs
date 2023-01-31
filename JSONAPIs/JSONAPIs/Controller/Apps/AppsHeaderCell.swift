@@ -9,7 +9,7 @@ import UIKit
 
 class AppsHeaderCell: UICollectionViewCell {
     
-    let companyLabel = UILabel(text: "facebook", font: .boldSystemFont(ofSize: 12))
+    let companyLabel = UILabel(text: "Facebook", font: .boldSystemFont(ofSize: 12))
     let titleLabel = UILabel(text: "Now, keeping up with frieds is faster than ever", font: .systemFont(ofSize: 22))
     let imageView = UIImageView(cornerRadius: 8)
     

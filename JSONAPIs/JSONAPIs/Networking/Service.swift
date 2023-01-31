@@ -40,7 +40,10 @@ class Service {
     }
     
     func fetchGames(completion: @escaping (AppGroup?, Error?) -> ()) {
-        guard let url = URL(string: "https://rss.applemarketingtools.com/api/v2/us/apps/top-free/50/apps.json") else { return }
+        //https://rss.applemarketingtools.com/api/v2/us/music/most-played/50/albums.json
+        
+        let urlString = "https://rss.applemarketingtools.com/api/v2/us/music/most-played/50/albums.json"
+        guard let url = URL(string: urlString) else { return }
         
         URLSession.shared.dataTask(with: url) { (data, resp, err) in
             
@@ -50,8 +53,6 @@ class Service {
         }
             do {
                 let appGroup = try JSONDecoder().decode(AppGroup.self, from: data!)
-            // success
-                appGroup.feed.results.forEach({print($0.name)})
                 completion(appGroup, nil)
             } catch {
                 completion(nil, error)
