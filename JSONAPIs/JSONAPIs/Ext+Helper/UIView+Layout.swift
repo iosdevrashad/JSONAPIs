@@ -111,16 +111,6 @@ struct AnchoredConstraints {
     var top, leading, bottom, trailing, width, height: NSLayoutConstraint?
 }
 
-extension UIView {
-    func animate(view: UIView) {
-        
-        let newButtonWidth: CGFloat = 60
-        let animator = UIViewPropertyAnimator(duration: 0.9, curve: .linear) { //1
-            self.frame = CGRect(x: 0, y: 0, width: newButtonWidth, height: newButtonWidth)
-            self.center = view.center
-        }
-        animator.startAnimation() //2
-    }
-}
+
 
 

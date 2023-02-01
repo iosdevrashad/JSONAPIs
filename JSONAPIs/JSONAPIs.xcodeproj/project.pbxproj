@@ -31,6 +31,7 @@
 		DCA1A24929888C49007B6B4E /* AppsHeaderHorizontalController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCA1A24829888C49007B6B4E /* AppsHeaderHorizontalController.swift */; };
 		DCA1A24B29888EAE007B6B4E /* AppsHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCA1A24A29888EAE007B6B4E /* AppsHeaderCell.swift */; };
 		DCA1A24D2988A213007B6B4E /* AppGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCA1A24C2988A213007B6B4E /* AppGroup.swift */; };
+		DCA1A24F2989E219007B6B4E /* SocialApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCA1A24E2989E218007B6B4E /* SocialApp.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,6 +62,7 @@
 		DCA1A24829888C49007B6B4E /* AppsHeaderHorizontalController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppsHeaderHorizontalController.swift; sourceTree = "<group>"; };
 		DCA1A24A29888EAE007B6B4E /* AppsHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppsHeaderCell.swift; sourceTree = "<group>"; };
 		DCA1A24C2988A213007B6B4E /* AppGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppGroup.swift; sourceTree = "<group>"; };
+		DCA1A24E2989E218007B6B4E /* SocialApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialApp.swift; sourceTree = "<group>"; };
 		E2DC33155E862435BCCEA84A /* Pods-JSONAPIs.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JSONAPIs.release.xcconfig"; path = "Target Support Files/Pods-JSONAPIs/Pods-JSONAPIs.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -165,6 +167,7 @@
 			children = (
 				DCA1A23329843327007B6B4E /* SearchResult.swift */,
 				DCA1A24C2988A213007B6B4E /* AppGroup.swift */,
+				DCA1A24E2989E218007B6B4E /* SocialApp.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -314,6 +317,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DCA1A2222982E340007B6B4E /* BaseTabBarController.swift in Sources */,
+				DCA1A24F2989E219007B6B4E /* SocialApp.swift in Sources */,
 				DCA1A23A29882B05007B6B4E /* AppsPageController.swift in Sources */,
 				DCA1A23429843327007B6B4E /* SearchResult.swift in Sources */,
 				DCA1A23129832801007B6B4E /* VerticalStackView.swift in Sources */,
