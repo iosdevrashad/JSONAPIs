@@ -7,16 +7,19 @@
 
 import Foundation
 
-struct AppGroup: Codable {
+struct AppGroup: Decodable {
     let feed: Feed
     
 }
 
-struct Feed: Codable {
+struct Feed: Decodable {
     let title: String
     let results: [FeedResult]
 }
 
-struct FeedResult: Codable {
-    let name, artistName, artworkUrl100: String
+struct FeedResult: Decodable {
+    let id: String
+    let name: String
+    let artistName: String
+    let artworkUrl100: String
 }

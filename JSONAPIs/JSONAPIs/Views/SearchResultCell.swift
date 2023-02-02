@@ -109,7 +109,6 @@ class SearchResultCell: UICollectionViewCell {
         
         addSubview(overallStackView)
         overallStackView.fillSuperview(padding: .init(top: 16, left: 16, bottom: 16, right: 16))
-
     }
     
     required init?(coder: NSCoder) {

@@ -11,58 +11,45 @@ class Service {
     
     static let shared = Service() // singleton
     
-    func fetchApps(searchTerm: String, completion: @escaping ([AppsResult], Error?) -> ()) {
+    func fetchApps(searchTerm: String, completion: @escaping (SearchResult?, Error?) -> ()) {
+        print("Fetching from service layer")
+        
         let urlString = "https://itunes.apple.com/search?term=i\(searchTerm)&entity=software"
-        guard let url = URL(string: urlString) else { return }
-
-        // fetch data from internet
-        URLSession.shared.dataTask(with: url) { data, resp, err in
-
-            if let err = err {
-                print("Couldn't present apps:", err)
-                completion([], nil)
-                return
-            }
-
-            //success
-            guard let data = data else { return }
-
-            do {
-                let searchResult = try JSONDecoder().decode(SearchResult.self, from: data)
-                
-                completion(searchResult.results, nil)
-
-            } catch let jsonErr {
-                print("Failed to decode json:", jsonErr)
-                completion([], jsonErr)
-            }
-        }.resume() // fires off request.
+        
+        fetchGenericJSONData(urlString: urlString, completion: completion)
+ 
+    }
+    
+    func fetchTheApps(completion: @escaping (AppGroup?, Error?) -> ()) {
+        let urlString = "https://rss.applemarketingtools.com/api/v2/us/apps/top-free/100/apps.json"
+        fetchAppGroup(urlString: urlString, completion: completion)
     }
     
     func fetchPlayedAlbums(completion: @escaping (AppGroup?, Error?) -> ()) {
-        let urlString = "https://rss.applemarketingtools.com/api/v2/us/music/most-played/50/albums.json"
+        let urlString = "https://rss.applemarketingtools.com/api/v2/us/music/most-played/100/albums.json"
         fetchAppGroup(urlString: urlString, completion: completion)
     }
     
     func fetchMusicVideos(completion: @escaping (AppGroup?, Error?) -> ()) {
-        let urlString = "https://rss.applemarketingtools.com/api/v2/us/music/most-played/50/music-videos.json"
+        let urlString = "https://rss.applemarketingtools.com/api/v2/us/music/most-played/100/music-videos.json"
         fetchAppGroup(urlString: urlString, completion: completion)
     }
     
     func fetchPodcasts(completion: @escaping (AppGroup?, Error?) -> ()) {
-        let urlString =  "https://rss.applemarketingtools.com/api/v2/us/podcasts/top/50/podcasts.json"
+        let urlString =  "https://rss.applemarketingtools.com/api/v2/us/podcasts/top/100/podcasts.json"
         fetchAppGroup(urlString: urlString, completion: completion)
     }
     
     func fetchBooks(completion: @escaping (AppGroup?, Error?) -> ()) {
-        let urlString = "https://rss.applemarketingtools.com/api/v2/us/books/top-free/50/books.json"
+        let urlString = "https://rss.applemarketingtools.com/api/v2/us/books/top-free/100/books.json"
         fetchAppGroup(urlString: urlString, completion: completion)
     }
     
     func fetchAudioBook(completion: @escaping (AppGroup?, Error?) -> ()) {
-        let urlString = "https://rss.applemarketingtools.com/api/v2/us/audio-books/top/50/audio-books.json"
+        let urlString = "https://rss.applemarketingtools.com/api/v2/us/audio-books/top/100/audio-books.json"
         fetchAppGroup(urlString: urlString, completion: completion)
     }
+    
     
     func fetchAppGroup(urlString: String, completion: @escaping (AppGroup?, Error?) -> Void) {
         
@@ -84,7 +71,15 @@ class Service {
     }
     
     func fetchSocialApps(completion: @escaping ([SocialApp]?, Error?) -> Void) {
-        let urlString = "https://www.dropbox.com/s/g45fp84ald0wepk/jsonformatter.txt?dl=0"
+        let urlString = "https://iosdevrashad.github.io/Data/jsonformatter.json"
+        
+        fetchGenericJSONData(urlString: urlString, completion: completion)
+    }
+    
+    // declare generic json function
+    func fetchGenericJSONData<T: Decodable>(urlString: String, completion: @escaping (T?, Error?) -> ()) {
+        
+        print("T is type:", T.self)
         
         guard let url = URL(string: urlString) else { return }
         
@@ -94,14 +89,30 @@ class Service {
                 return
         }
             do {
-                let objects = try JSONDecoder().decode([SocialApp].self, from: data!)
+                let objects = try JSONDecoder().decode(T.self, from: data!)
                 
                 // success
                 completion(objects, nil)
             } catch {
                 completion(nil, error)
             }
-            
         } .resume()
     }
+}
+
+
+class Stack<T: Decodable> {
+    var items = [T]()
+    func push(item: T) { items.append(item) }
+    func pop() -> T? { return items.last }
+}
+
+import UIKit
+
+func dummyFunc() {
+    let stackOfStrings = Stack<String>()
+    stackOfStrings.push(item: "String required")
+    
+    let stackOfInts = Stack<Int>()
+    stackOfInts.push(item: 1)
 }
