@@ -84,10 +84,10 @@ class Service {
         guard let url = URL(string: urlString) else { return }
         
         URLSession.shared.dataTask(with: url) { (data, resp, err) in
-        if let err = err {
-            completion(nil, err)
+            if let err = err {
+                completion(nil, err)
                 return
-        }
+            }
             do {
                 let objects = try JSONDecoder().decode(T.self, from: data!)
                 
