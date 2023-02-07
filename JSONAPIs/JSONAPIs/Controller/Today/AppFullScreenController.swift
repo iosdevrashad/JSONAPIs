@@ -17,6 +17,8 @@ class AppFullScreenController: UITableViewController {
         
         tableView.tableFooterView = UIView()
         tableView.separatorStyle = .none
+        tableView.contentInsetAdjustmentBehavior = .never
+        tableView.contentInset = .init(top: 0, left: 0, bottom: 40, right: 0)
 
     }
     
@@ -29,6 +31,7 @@ class AppFullScreenController: UITableViewController {
         if indexPath.item == 0 {
             let headerCell = AppFullScreenHeaderCell()
             headerCell.todayCell.todayItem = todayItem
+            headerCell.todayCell.layer.cornerRadius = 0
             
             return headerCell
         }
@@ -44,7 +47,7 @@ class AppFullScreenController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 0 {
-            return 450
+            return TodayController.cellSize
         }
         return super.tableView(tableView, heightForRowAt: indexPath)
     }

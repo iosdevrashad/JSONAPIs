@@ -9,23 +9,76 @@ import UIKit
 
 class TodayController: BaseListController, UICollectionViewDelegateFlowLayout {
     
-   fileprivate let cellID = "cellID"
+//    let items = [
+//        TodayItem(categeory: "Quick Tips!", title: "Take advanatge of your Apps.", image: UIImage(named: "evgenie")!, description: "Making the best of all your Apps with product organization at its finest.", backgroundColor: .systemGreen, cellType: .multiple,)
+//
+//    TodayItem.init(categeory: "Another!", title: "Here we GO.", image: UIImage(named: "evgenie")!, description: "YESSIR.", backgroundColor: .red, cellType: .multiple)
+// ]
     
-    let items = [
-        TodayItem(categeory: "Quick Tips!", title: "Take advanatge of your Apps.", image: UIImage(named: "evgenie")!, description: "Making the best of all your Apps with product organization at its finest.", backgroundColor: .white),
-        TodayItem(categeory: "Favorites!", title: "Amplify your Favorites.", image: UIImage(named: "evgenie2")!, description: "Taking your favorite Apps to the next level!", backgroundColor: .systemGray5)
-    ]
+    var items = [TodayItem]()
+    
+    var activityIndicatorView: UIActivityIndicatorView = {
+        let aiv = UIActivityIndicatorView(style: .large)
+        aiv.color = .darkGray
+        aiv.startAnimating()
+        aiv.hidesWhenStopped = true
+        return aiv
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.addSubview(activityIndicatorView)
+        activityIndicatorView.centerInSuperview()
+        
+        fetchData()
+        
         navigationController?.isNavigationBarHidden = true
         
-        collectionView.backgroundColor = .systemGray2
+        collectionView.backgroundColor = .systemGreen
         
-        collectionView.register(TodayCell.self, forCellWithReuseIdentifier: cellID)
+        collectionView.register(TodayCell.self, forCellWithReuseIdentifier: TodayItem.CellType.single.rawValue)
+        collectionView.register(TodayMultipleAppCell.self, forCellWithReuseIdentifier: TodayItem.CellType.multiple.rawValue)
     }
     
+    fileprivate func fetchData() {
+        // dispatch group
+        
+        let dispatchGroup = DispatchGroup()
+        
+        var topGrossingGroup: AppGroup?
+        var musicVideos: AppGroup?
+        
+        dispatchGroup.enter()
+        Service.shared.fetchTheApps { (appGroup, err) in
+            topGrossingGroup = appGroup
+            dispatchGroup.leave()
+        }
+        
+        dispatchGroup.enter()
+        Service.shared.fetchMusicVideos { (appGroup, err) in
+            musicVideos = appGroup
+            dispatchGroup.leave()
+        }
+        //completion
+        dispatchGroup.notify(queue: .main) {
+            // access to info
+            
+            print("Finished")
+            
+            self.activityIndicatorView.stopAnimating()
+            
+            topGrossingGroup?.feed.results
+            
+            self.items = [
+                TodayItem.init(categeory: "What's off the Chain?", title: topGrossingGroup?.feed.title ?? "", image: UIImage(named: "evgenie")!, description: "", backgroundColor: .systemBrown, cellType: .multiple, apps: topGrossingGroup?.feed.results ?? []),
+                
+                TodayItem.init(categeory: "Favorites!", title: musicVideos?.feed.title ?? "", image: UIImage(named: "evgenie2")!, description: "", backgroundColor: .systemPink, cellType: .multiple, apps: musicVideos?.feed.results ?? []),
+            ]
+            self.collectionView.reloadData()
+        }
+    }
+
     var appFullScreenController: AppFullScreenController!
     
     var topConstraint: NSLayoutConstraint?
@@ -45,6 +98,8 @@ class TodayController: BaseListController, UICollectionViewDelegateFlowLayout {
         addChild(appFullScreenController)
         
         self.appFullScreenController = appFullScreenController
+        
+        self.collectionView.isUserInteractionEnabled = false
         
         guard let cell = collectionView.cellForItem(at: indexPath) else { return }
         
@@ -76,6 +131,12 @@ class TodayController: BaseListController, UICollectionViewDelegateFlowLayout {
 
             self.tabBarController?.tabBar.frame.origin.y = self.view.frame.size.height
 
+            guard let cell = appFullScreenController.tableView.cellForRow(at: [0, 0]) as? AppFullScreenHeaderCell else {
+                return
+            }
+            cell.todayCell.topConstraint.constant = 48
+            cell.layoutIfNeeded()
+            
         }, completion: nil)
     }
     
@@ -96,9 +157,17 @@ class TodayController: BaseListController, UICollectionViewDelegateFlowLayout {
             if let tabBarFrame = self.tabBarController?.tabBar.frame {
                 self.tabBarController?.tabBar.frame.origin.y = self.view.frame.size.height - tabBarFrame.height
             }
+            
+            guard let cell = self.appFullScreenController.tableView.cellForRow(at: [0, 0]) as? AppFullScreenHeaderCell else {
+                return
+            }
+            cell.todayCell.topConstraint.constant = 24
+            cell.layoutIfNeeded()
+            
         }, completion: { _ in
             gesture.view?.removeFromSuperview()
             self.appFullScreenController.removeFromParent()
+            self.collectionView.isUserInteractionEnabled = true
         })
     }
     
@@ -108,13 +177,30 @@ class TodayController: BaseListController, UICollectionViewDelegateFlowLayout {
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! TodayCell
+        
+        let cellID = items[indexPath.item].cellType.rawValue
+        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! BaseTodayCell
         cell.todayItem = items[indexPath.item]
+        
         return cell
+    
+//        // multiple app cell
+//        if indexPath.item == 0 {
+//            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: multipleCellID, for: indexPath) as!
+//            TodayMultipleAppCell
+//            cell.todayItem = items[indexPath.item]
+//            return cell
+//        }
+//
+//        cell.todayItem = items[indexPath.item]
+//        return cell
     }
     
+    static let cellSize: CGFloat = 500
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return .init(width: view.frame.width - 64, height: 450)
+        return .init(width: view.frame.width - 64, height: TodayController.cellSize)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {

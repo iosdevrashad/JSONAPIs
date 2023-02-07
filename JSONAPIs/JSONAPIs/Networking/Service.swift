@@ -17,7 +17,6 @@ class Service {
         let urlString = "https://itunes.apple.com/search?term=i\(searchTerm)&entity=software"
         
         fetchGenericJSONData(urlString: urlString, completion: completion)
- 
     }
     
     func fetchTheApps(completion: @escaping (AppGroup?, Error?) -> ()) {

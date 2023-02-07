@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		C20B5BCFB8D432F6FA95287B /* Pods_JSONAPIs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B70A5D4F7C4EFABA96587A1 /* Pods_JSONAPIs.framework */; };
+		DC460DCD2992B7A80046CB37 /* MultipleAppCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC460DCC2992B7A70046CB37 /* MultipleAppCell.swift */; };
 		DCA1A20E2982E0CE007B6B4E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCA1A20D2982E0CE007B6B4E /* AppDelegate.swift */; };
 		DCA1A2102982E0CE007B6B4E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCA1A20F2982E0CE007B6B4E /* SceneDelegate.swift */; };
 		DCA1A2122982E0CE007B6B4E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCA1A2112982E0CE007B6B4E /* ViewController.swift */; };
@@ -48,11 +49,15 @@
 		DCA1A275299166DE007B6B4E /* AppFullScreenDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCA1A274299166DE007B6B4E /* AppFullScreenDescriptionCell.swift */; };
 		DCA1A277299172DC007B6B4E /* AppFullScreenHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCA1A276299172DC007B6B4E /* AppFullScreenHeaderCell.swift */; };
 		DCA1A2792991BAFD007B6B4E /* TodayItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCA1A2782991BAFD007B6B4E /* TodayItem.swift */; };
+		DCA1A29A2992A37F007B6B4E /* TodayMultipleAppCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCA1A2992992A37F007B6B4E /* TodayMultipleAppCell.swift */; };
+		DCA1A29C2992AF52007B6B4E /* BaseTodayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCA1A29B2992AF52007B6B4E /* BaseTodayCell.swift */; };
+		DCA1A29E2992B3B2007B6B4E /* TodayMultipleAppsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCA1A29D2992B3B2007B6B4E /* TodayMultipleAppsController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0E60EC4B7ECE6FBB1D9A2F40 /* Pods-JSONAPIs.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JSONAPIs.debug.xcconfig"; path = "Target Support Files/Pods-JSONAPIs/Pods-JSONAPIs.debug.xcconfig"; sourceTree = "<group>"; };
 		4B70A5D4F7C4EFABA96587A1 /* Pods_JSONAPIs.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JSONAPIs.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC460DCC2992B7A70046CB37 /* MultipleAppCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleAppCell.swift; sourceTree = "<group>"; };
 		DCA1A20A2982E0CE007B6B4E /* JSONAPIs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JSONAPIs.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCA1A20D2982E0CE007B6B4E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DCA1A20F2982E0CE007B6B4E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -95,6 +100,9 @@
 		DCA1A274299166DE007B6B4E /* AppFullScreenDescriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFullScreenDescriptionCell.swift; sourceTree = "<group>"; };
 		DCA1A276299172DC007B6B4E /* AppFullScreenHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFullScreenHeaderCell.swift; sourceTree = "<group>"; };
 		DCA1A2782991BAFD007B6B4E /* TodayItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayItem.swift; sourceTree = "<group>"; };
+		DCA1A2992992A37F007B6B4E /* TodayMultipleAppCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayMultipleAppCell.swift; sourceTree = "<group>"; };
+		DCA1A29B2992AF52007B6B4E /* BaseTodayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTodayCell.swift; sourceTree = "<group>"; };
+		DCA1A29D2992B3B2007B6B4E /* TodayMultipleAppsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayMultipleAppsController.swift; sourceTree = "<group>"; };
 		E2DC33155E862435BCCEA84A /* Pods-JSONAPIs.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JSONAPIs.release.xcconfig"; path = "Target Support Files/Pods-JSONAPIs/Pods-JSONAPIs.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -275,6 +283,7 @@
 			children = (
 				DCA1A269298D6295007B6B4E /* TodayController.swift */,
 				DCA1A27229916056007B6B4E /* AppFullScreenController.swift */,
+				DCA1A29D2992B3B2007B6B4E /* TodayMultipleAppsController.swift */,
 			);
 			path = Today;
 			sourceTree = "<group>";
@@ -285,6 +294,9 @@
 				DCA1A26C298D64A2007B6B4E /* TodayCell.swift */,
 				DCA1A274299166DE007B6B4E /* AppFullScreenDescriptionCell.swift */,
 				DCA1A276299172DC007B6B4E /* AppFullScreenHeaderCell.swift */,
+				DCA1A2992992A37F007B6B4E /* TodayMultipleAppCell.swift */,
+				DCA1A29B2992AF52007B6B4E /* BaseTodayCell.swift */,
+				DC460DCC2992B7A70046CB37 /* MultipleAppCell.swift */,
 			);
 			path = Today;
 			sourceTree = "<group>";
@@ -410,6 +422,7 @@
 				DCA1A264298C2CF3007B6B4E /* ReviewCell.swift in Sources */,
 				DCA1A24F2989E219007B6B4E /* SocialApp.swift in Sources */,
 				DCA1A23A29882B05007B6B4E /* AppsPageController.swift in Sources */,
+				DCA1A29C2992AF52007B6B4E /* BaseTodayCell.swift in Sources */,
 				DCA1A23429843327007B6B4E /* SearchResult.swift in Sources */,
 				DCA1A23129832801007B6B4E /* VerticalStackView.swift in Sources */,
 				DCA1A227298305DC007B6B4E /* AppSearchController.swift in Sources */,
@@ -422,6 +435,7 @@
 				DCA1A251298B1051007B6B4E /* HorizontalSnappingController.swift in Sources */,
 				DCA1A253298B1891007B6B4E /* BetterSnappingLayout.swift in Sources */,
 				DCA1A258298B2CF7007B6B4E /* AppDetailCell.swift in Sources */,
+				DCA1A29E2992B3B2007B6B4E /* TodayMultipleAppsController.swift in Sources */,
 				DCA1A22A29830E71007B6B4E /* SearchResultCell.swift in Sources */,
 				DCA1A256298B1FD2007B6B4E /* AppDetailController.swift in Sources */,
 				DCA1A23729844DA6007B6B4E /* Service.swift in Sources */,
@@ -432,6 +446,7 @@
 				DCA1A23C2988316E007B6B4E /* BaseListController.swift in Sources */,
 				DCA1A26A298D6295007B6B4E /* TodayController.swift in Sources */,
 				DCA1A25C298C0FDA007B6B4E /* PreviewScreenShotController.swift in Sources */,
+				DC460DCD2992B7A80046CB37 /* MultipleAppCell.swift in Sources */,
 				DCA1A24D2988A213007B6B4E /* AppGroup.swift in Sources */,
 				DCA1A266298C56CE007B6B4E /* Review.swift in Sources */,
 				DCA1A24B29888EAE007B6B4E /* AppsHeaderCell.swift in Sources */,
@@ -441,6 +456,7 @@
 				DCA1A24129885A92007B6B4E /* AppsHorizontalController.swift in Sources */,
 				DCA1A262298C28A5007B6B4E /* ReviewController.swift in Sources */,
 				DCA1A2432988670D007B6B4E /* AppRowCell.swift in Sources */,
+				DCA1A29A2992A37F007B6B4E /* TodayMultipleAppCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

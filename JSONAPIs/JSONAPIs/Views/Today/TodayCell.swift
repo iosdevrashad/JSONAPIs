@@ -7,14 +7,17 @@
 
 import UIKit
 
-class TodayCell: UICollectionViewCell {
+class TodayCell: BaseTodayCell {
     
-    var todayItem: TodayItem! {
+    override var todayItem: TodayItem! {
         didSet {
             categoryLabel.text = todayItem.categeory
             titleLabel.text = todayItem.title
             imageView.image = todayItem.image
             descriptionLabel.text = todayItem.description
+            
+            backgroundColor =  todayItem.backgroundColor
+            
         }
     }
     
@@ -23,6 +26,8 @@ class TodayCell: UICollectionViewCell {
     let imageView = UIImageView(image: UIImage(named: "evgenie"))
     
     let descriptionLabel = UILabel(text: "Making the best of all your Apps with product organization at its finest.", font: .systemFont(ofSize: 16), numberOfLines: 3)
+    
+    var topConstraint: NSLayoutConstraint!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -42,7 +47,10 @@ class TodayCell: UICollectionViewCell {
         categoryLabel, titleLabel, imageContainerView, descriptionLabel
         ], spacing: 8)
         addSubview(stackView)
-        stackView.fillSuperview(padding: .init(top: 24, left: 24, bottom: 24, right: 24))
+        
+        stackView.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, padding: .init(top: 0, left: 24, bottom: 24, right: 24))
+        self.topConstraint = stackView.topAnchor.constraint(equalTo: topAnchor, constant: 24)
+        self.topConstraint.isActive = true
     }
     
     required init?(coder: NSCoder) {
